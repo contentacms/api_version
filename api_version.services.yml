@@ -1,0 +1,16 @@
+services:
+  api_version.calculator:
+    class: \Drupal\api_version\ApiVersionCalculator
+    arguments: ['@config.factory', '@state']
+  
+  api_version.event_subscriber.config:
+    class: \Drupal\api_version\EventSubscriber\ConfigEventSubscriber
+    arguments: ['@api_version.calculator']
+    tags:
+      - { name: event_subscriber }
+  
+  api_version.event_subscriber.response:
+    class: \Drupal\api_version\EventSubscriber\ResponseEventSubscriber
+    arguments: ['@api_version.calculator']
+    tags:
+      - { name: event_subscriber }
